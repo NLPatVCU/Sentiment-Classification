@@ -1,2 +1,43 @@
 # NBSentimentClassifier
 A sentiment classification script for drug reviews using NLTK Naive Bayes Classifier.
+
+## Requirements
+* Only tested on Python 3.6
+* Requires the following Python packages:
+  * string
+  * NLTK
+  * math
+  * csv
+  * argparse
+  * random
+  * collections
+
+## File Descriptions
+The main file is the python script "NBSentiment.py".  Command line options for running this file are listed below.  The .ipynb files are Jupyter Notebooks with hard coded verions of the classification code, as well as the webscraping code used to obtain the drug reviews and ratings. The other CSV and text files are input and output files.
+
+## NBSentiment.py
+This script trains and tests a Naive Bayes Classifier to classify drug reviews.  It also can accept a text file with additional reviews to classify.  The command line options are listed below.
+
+**Options**
+
+  **-i**  Required. Input CSV file that includes training and testing data. Must be in the format of "review text","5", where the second entry is the rating.  See the "citalopram_effectiveness.csv" file for an example.  The program divides this data up into 3/4 used for training, and 1/4 used for testing to calculate the accuracy.
+  
+  **-s**  Required. Stopwords text file with a list of stopwords to remove before training the classifier or predicting sentiment class.  See the "stopwords_long.txt" file for an example.
+  
+  **-c**  Optional, default = None. Input text file with one review per line that needs classification. Use this option to predict semtiment class on reviews that do not yet have a rating, or to polarize neutral reviews.  See the "neutral.txt" file for an example format.
+  
+  **-d**  Optional, default = None. Input CSV file in the same format as the -i option.  This file contains additional ratings to classify and calculate accuracy.  This option is meant to analyze ratings from a different domain than the one being trained on.
+  
+  **-p**  Optional, default = ['4','5']. A list of ratings that count as positive ratings for training the classifier.  These must be strings, and must match the ratings in the input files.
+  
+  **-n** Optional, default = ['1','2']. A list of ratings that count as negative ratings for training the classifier.  These must be strings, and must match the ratings in the input files.
+  
+  **-z**  Optional, default = 1.  The number of time to repeat training the classifier to get an average accuracy when choosing different training sets of data.
+  
+**Example Usage**
+
+ >> python NBSentiment.py -i citalopram_effectiveness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectiveness.csv -p ['3','4','5'] -n ['1','2'] -z 10
+
+
+  
+  
