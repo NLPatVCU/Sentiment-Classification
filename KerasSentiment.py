@@ -159,7 +159,3 @@ if args.c is not None:
     for i in range(len(predictions)):
         answers.append([predictions[i],sentences[i]])
         print("{} :: {}".format(predictions[i],sentences[i]))
-
-# predictions = model.predict(X)
-# rounded = [round(x[0]) for x in predictions]
-# print("Rounded predictions: {}".format(rounded))
