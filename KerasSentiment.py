@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from gensim.models import word2vec
+from gensim.models.keyedvectors import KeyedVectors
 
 import argparse
 import numpy as np
@@ -86,10 +87,12 @@ parser.add_argument('-d', metavar='domain', type=str, help='a file with text fro
 args = parser.parse_args()
 
 # Build word2vec model
-print("Building word2vec model on {}".format(args.i))
-w2vsize = 2
-sentences = word2vec.Text8Corpus(args.i)
-w2v_model = word2vec.Word2Vec(sentences, size=w2vsize, min_count=1, workers=4)
+w2vsize = 300
+# print("Building word2vec model on {}".format(args.i))
+# sentences = word2vec.Text8Corpus(args.i)
+# w2v_model = word2vec.Word2Vec(sentences, size=w2vsize, min_count=1, workers=4)
+print("Loading Googles word2vec model...")
+w2v_model = KeyedVectors.load_word2vec_format('/media/sf_Grad_School/GoogleNews-vectors-negative300.bin', binary=True)
 neg_list,pos_list = importCSV(args.i)
 
 ### create training and test sets
@@ -125,14 +128,16 @@ for z in range(int(args.z)):
 
 model = Sequential()
 model.add(Dense(w2vsize,input_shape=(w2vsize,),activation='relu'))
-model.add(Dropout(0.3))
+model.add(Dropout(0.5))
 model.add(Dense(w2vsize*2,activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(w2vsize,activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(1,activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
 
-print("Train_data: {}".format(train_data[0]))
+# print("Train_data: {}".format(train_data[0]))
 
 model.fit(train_data,train_labels,epochs=100,batch_size=10)
 
