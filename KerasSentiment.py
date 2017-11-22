@@ -63,8 +63,8 @@ def importCSV(filename):
             if tmp_rating in args.p:
                 pos_words.append((format_sentence(tmp_com, stopwords), 1))
 
-    neg_words.extend(neg_words)
-    neg_words.extend(neg_words[:100])
+    # neg_words.extend(neg_words)
+    # neg_words.extend(neg_words[:100])
     print("Total Negative Instances:" + str(len(neg_words)) + "\nTotal Positive Instances:" + str(len(pos_words)))
     return neg_words, pos_words
 
@@ -91,7 +91,7 @@ w2vsize = 300
 # print("Building word2vec model on {}".format(args.i))
 # sentences = word2vec.Text8Corpus(args.i)
 # w2v_model = word2vec.Word2Vec(sentences, size=w2vsize, min_count=1, workers=4)
-print("Loading Googles word2vec model...")
+print("Loading Google's word2vec model...")
 w2v_model = KeyedVectors.load_word2vec_format('/media/sf_Grad_School/GoogleNews-vectors-negative300.bin', binary=True)
 neg_list,pos_list = importCSV(args.i)
 
@@ -129,6 +129,8 @@ for z in range(int(args.z)):
 model = Sequential()
 model.add(Dense(w2vsize,input_shape=(w2vsize,),activation='relu'))
 model.add(Dropout(0.5))
+model.add(Dense(w2vsize,activation='relu'))
+model.add(Dropout(0.5))
 model.add(Dense(w2vsize*2,activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(w2vsize,activation='relu'))
@@ -159,3 +161,30 @@ if args.c is not None:
     for i in range(len(predictions)):
         answers.append([predictions[i],sentences[i]])
         print("{} :: {}".format(predictions[i],sentences[i]))
+
+if args.d is not None:
+    domain_list = []
+    with open(args.d) as domainfile:
+        reader = csv.DictReader(domainfile)
+        for row in reader:
+            domain_list.append({'comment': row['comment'], 'rating': row['rating']})
+    print(str(len(domain_list)))
+
+    d_list = []
+    for c in range(len(domain_list)):
+        tmp_c = domain_list[c]['comment']
+        tmp_r = domain_list[c]['rating']
+        # remove stop words
+        with open(args.s) as raw:
+            stopwords = raw.read().translate(str.maketrans("", "", string.punctuation)).splitlines()
+            if tmp_r in args.n:
+                d_list.append((format_sentence(tmp_c, stopwords), 0))
+            if tmp_r in args.p:
+                d_list.append((format_sentence(tmp_c, stopwords), 1))
+
+    d_data = [word[0] for word in d_list]
+    d_labels = [word[1] for word in d_list]
+
+    domain_accuracy = model.evaluate(d_data, d_labels)
+    print('Classifier domain shift accuracy:')
+    print("\n{}: {}".format(model.metrics_names[1], scores[1] * 100))
