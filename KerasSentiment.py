@@ -83,6 +83,8 @@ parser.add_argument('-z', metavar='iterations', type=str,
                     help='the number of times to repeat the classifier training', required=False, default=1)
 parser.add_argument('-d', metavar='domain', type=str, help='a file with text from a different domain.',
                         required=False, default=None)
+parser.add_argument('-m', metavar='model', type=str, help='location of word2vec model to be used',
+                        required=True, default='/media/sf_Grad_School/GoogleNews-vectors-negative300.bin')
 
 args = parser.parse_args()
 
@@ -91,8 +93,8 @@ w2vsize = 300
 # print("Building word2vec model on {}".format(args.i))
 # sentences = word2vec.Text8Corpus(args.i)
 # w2v_model = word2vec.Word2Vec(sentences, size=w2vsize, min_count=1, workers=4)
-print("Loading Google's word2vec model...")
-w2v_model = KeyedVectors.load_word2vec_format('/media/sf_Grad_School/GoogleNews-vectors-negative300.bin', binary=True)
+print("word2vec model {}".format(args.m))
+w2v_model = KeyedVectors.load_word2vec_format(args.m, binary=True)
 neg_list,pos_list = importCSV(args.i)
 
 ### create training and test sets
