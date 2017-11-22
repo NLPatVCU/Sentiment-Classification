@@ -15,8 +15,8 @@ A sentiment classification script for drug reviews using NLTK Naive Bayes Classi
 ## File Descriptions
 The main file is the python script "NBSentiment.py".  Command line options for running this file are listed below.  The .ipynb files are Jupyter Notebooks with hard coded verions of the classification code, as well as the webscraping code used to obtain the drug reviews and ratings. The other CSV and text files are input and output files.
 
-## NBSentiment.py
-This script trains and tests a Naive Bayes Classifier to classify drug reviews.  It also can accept a text file with additional reviews to classify.  The command line options are listed below.
+## NBSentiment.py and DTSentiment.py
+These scripts train and test either a Naive Bayes Classifier (NB) or a Decision Tree classifier (DT) to classify drug reviews.  It also can accept a text file with additional reviews to classify.  The command line options that apply to both scripts are listed below.
 
 **Options**
 
@@ -36,7 +36,9 @@ This script trains and tests a Naive Bayes Classifier to classify drug reviews. 
   
 **Example Usage**
 
- >> python NBSentiment.py -i citalopram_effectiveness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectiveness.csv -p ['3','4','5'] -n ['1','2'] -z 10
+ >> python NBSentiment.py -i citalopram_effectivness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectivness.csv -p ['3','4','5'] -n ['1','2'] -z 10
+ 
+ >> python DTSentiment.py -i citalopram_effectivness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectivness.csv -p ['3','4','5'] -n ['1','2'] -z 10
 
 
   
