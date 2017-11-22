@@ -94,6 +94,8 @@ w2vsize = 300
 # print("Building word2vec model on {}".format(args.i))
 # sentences = word2vec.Text8Corpus(args.i)
 # w2v_model = word2vec.Word2Vec(sentences, size=w2vsize, min_count=1, workers=4)
+# You can get google's word2vec model here:
+# https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing
 print("word2vec model {}".format(args.m))
 w2v_model = KeyedVectors.load_word2vec_format(args.m, binary=True)
 neg_list, pos_list = import_csv(args.i)
