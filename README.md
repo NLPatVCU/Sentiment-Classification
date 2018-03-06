@@ -36,11 +36,8 @@ These scripts train and test either a Naive Bayes Classifier (NB), a Decision Tr
   
 **Example Usage**
 
- >> python NBSentiment.py -i citalopram_effectivness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectivness.csv -p ['3','4','5'] -n ['1','2'] -z 10
- 
- >> python DTSentiment.py -i citalopram_effectivness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectivness.csv -p ['3','4','5'] -n ['1','2'] -z 10
-
- >> python KerasSentiment.py -i citalopram_effectivness.csv -s stopwords_long.txt -c neutral.txt -d gilenya_effectivness.csv -p ['3','4','5'] -n ['1','2'] -z 10
-
-  
-  
+ >> python NBSentiment.py -i citalopram_effectivness.csv -s stopwords_long -c neutral.txt -d gilenya_effectivness.csv -p ['4','5'] -n ['1','2'] -z 10
+ >>
+ >> python DTSentiment.py -i citalopram_effectivness.csv -s stopwords_long -c neutral.txt -d gilenya_effectivness.csv -p ['4','5'] -n ['1','2'] -z 10
+>>
+ >> python KerasSentiment.py -i citalopram_effectivness.csv -s stopwords_long -c neutral.txt -d gilenya_effectivness.csv -p ['4','5'] -n ['1','2'] -z 10 -m GoogleNews-vectors-negative300.bin
