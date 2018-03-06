@@ -1,5 +1,5 @@
 # NBSentimentClassifier
-A sentiment classification script for drug reviews using NLTK Naive Bayes Classifier.
+A sentiment classification script for drug reviews using NLTK Naive Bayes Classifier, Decision Tree Classifier, and Keras Neural Network.
 
 ## Requirements
 * Only tested on Python 3.6
@@ -11,9 +11,13 @@ A sentiment classification script for drug reviews using NLTK Naive Bayes Classi
   * argparse
   * random
   * collections
+  * keras
+  * numpy
+  * gensim
+  * scikit
 
 ## File Descriptions
-The main file is the python script "NBSentiment.py".  Command line options for running this file are listed below.  The .ipynb files are Jupyter Notebooks with hard coded verions of the classification code, as well as the webscraping code used to obtain the drug reviews and ratings. The other CSV and text files are input and output files.
+The main files are the python scripts "NBSentiment.py", "DTSentiment.py", and "KerasSentiment.py".  Command line options for running these files are listed below.  The .ipynb files are Jupyter Notebooks with hard coded verions of the classification code, as well as the webscraping code used to obtain the drug reviews and ratings. The other CSV and text files are input and output files.
 
 ## NBSentiment.py, DTSentiment.py, KerasSentiment.py
 These scripts train and test either a Naive Bayes Classifier (NB), a Decision Tree classifier (DT), or a Neural Network to classify drug reviews.  It also can accept a text file with additional reviews to classify.  The command line options that apply to all scripts are listed below.
@@ -34,6 +38,7 @@ These scripts train and test either a Naive Bayes Classifier (NB), a Decision Tr
   
   **-z**  Optional, default = 1.  The number of time to repeat training the classifier to get an average accuracy when choosing different training sets of data.
   
+  **-m** Required for Neural Network, not used for other NB or DT, defines the Word2Vec model to use.
 **Example Usage**
 
  >> python NBSentiment.py -i citalopram_effectivness.csv -s stopwords_long -c neutral.txt -d gilenya_effectivness.csv -p ['4','5'] -n ['1','2'] -z 10
