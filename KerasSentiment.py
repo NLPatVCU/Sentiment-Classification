@@ -58,10 +58,10 @@ def import_csv(filename):
         with open(args.s) as c_raw:
             c_stopwords = c_raw.read().translate(str.maketrans("", "", string.punctuation)).splitlines()
 
-            if tmp_rating in args.n:
-                neg_words.append((format_sentence(tmp_com, c_stopwords), 0))
-            if tmp_rating in args.p:
-                pos_words.append((format_sentence(tmp_com, c_stopwords), 1))
+            if float(tmp_rating) <= float(args.n):
+                neg_list.append((format_sentence(tmp_com, stopwords), 'neg'))
+            if float(tmp_rating) >= float(args.p):
+                pos_list.append((format_sentence(tmp_com, stopwords), 'pos'))
 
     # neg_words.extend(neg_words)
     # neg_words.extend(neg_words[:100])
