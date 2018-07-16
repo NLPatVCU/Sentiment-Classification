@@ -49,8 +49,8 @@ if __name__ == "__main__":
     parser.add_argument('-i', metavar='inputfile', type=str, help='path to the input csv file for training and testing.', required=True)
     parser.add_argument('-c', metavar='toclassify', type=str, help='path to file with entries to classify.', required=False, default=None)
     parser.add_argument('-s', metavar='stopwords', type=str, help='path to stopwords file', required=True)
-    parser.add_argument('-p', metavar='posratings', type=str, help='a list of positive ratings as strings', required=False, default=['4','5'])
-    parser.add_argument('-n', metavar='negratings', type=str, help='a list of negative ratings as strings', required=False, default=['1','2'])   
+    parser.add_argument('-p', metavar='posratings', type=str, help='a list of positive ratings as strings', required=False, default=4)
+    parser.add_argument('-n', metavar='negratings', type=str, help='a list of negative ratings as strings', required=False, default=2)
     parser.add_argument('-z', metavar='iterations', type=str, help='the number of times to repeat the classifier training', required=False, default=1)   
     parser.add_argument('-d', metavar='domain', type=str, help='a file with text from a different domain.', required=False, default = None)   
     
@@ -76,9 +76,9 @@ if __name__ == "__main__":
         with open(args.s) as raw:
             stopwords = raw.read().translate(str.maketrans("", "", string.punctuation)).splitlines()
  
-            if tmp_rating in args.n:
+            if float(tmp_rating) <= float(args.n):
                 neg_list.append((format_sentence(tmp_com, stopwords), 'neg'))
-            if tmp_rating in args.p:
+            if float(tmp_rating) >= float(args.p):
                 pos_list.append((format_sentence(tmp_com, stopwords), 'pos'))
 
     
