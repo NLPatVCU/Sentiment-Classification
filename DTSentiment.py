@@ -1,4 +1,4 @@
-### NBSentiment
+### DTSentiment
 ### Author: Amy Olex
 ### 11/13/17
 ### This program takes in two csv files containing text to be classified as positive or negative sentiment.
@@ -45,7 +45,7 @@ def format_sentence(sent, stopwords=None):
 if __name__ == "__main__":
     
     ## Parse input arguments
-    parser = argparse.ArgumentParser(description='Train a NB Sentiment Classifier')
+    parser = argparse.ArgumentParser(description='Train a DT Sentiment Classifier')
     parser.add_argument('-i', metavar='inputfile', type=str, help='path to the input csv file for training and testing.', required=True)
     parser.add_argument('-c', metavar='toclassify', type=str, help='path to file with entries to classify.', required=False, default=None)
     parser.add_argument('-s', metavar='stopwords', type=str, help='path to stopwords file', required=True)
@@ -147,8 +147,7 @@ if __name__ == "__main__":
                 d_list.append((format_sentence(tmp_c, stopwords), 'neg'))
             if tmp_r in args.p:
                 d_list.append((format_sentence(tmp_c, stopwords), 'pos'))
-        
-        #classifier2 = NaiveBayesClassifier.train(domain_list)
+
         domain_accuracy = nltk.classify.util.accuracy(classifier, d_list)
         print('Classifier domain shift accuracy:', domain_accuracy)
         
