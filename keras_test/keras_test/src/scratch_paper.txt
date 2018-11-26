@@ -1,0 +1,185 @@
+
+def modify_data(dataArr):
+    hold = list()
+    for each in dataArr:
+        hold.append(ast.literal_eval(each))
+    return hold
+
+    #
+    # test_vec = KeyedVectors.load_word2vec_format(df, binary=True)
+    #
+    # # print(test_shit, sep=' ', end='n', file=sys.stdout, flush=False)
+    #
+    # X, y = auto.fit_transform(test_shit)
+    #
+    # print(X)
+    # print(y)
+    #
+    # # print(X, sep=' ', end='n', file=sys.stdout, flush=False)
+    # from gensim.models.keyedvectors import KeyedVectors
+    from keras_pandas.Automater import Automater
+
+
+    def size_correction(feature_set, training_data):
+        for (ins, x_ins) in (feature_set, training_data):
+            temp = np.full_like(ins, 0.0)
+            # print(temp)
+            for (feat, x_feat) in (ins, x_ins):
+                if (feat == x_feat):
+                    print("we muhfuckin made it")
+
+        return feature_set
+
+
+        def precentage(x, y):
+            print(x)
+            print(y)
+            return x/y
+
+
+        # def calc_accuracy(predictions):
+        #     # Get Accuracy, Recall, F Measure, Confusion Matrix
+        #     model_answers = enc.inverse_transform(predictions)
+        #     count = 0
+        #     tp = 0
+        #     tn = 0
+        #     pos = 0
+        #     neg = 0
+        #     for i in range(len(model_answers)):
+        #         if target[i] == 'pos':
+        #             pos += 1
+        #         if target[i] == 'neg':
+        #             neg += 1
+        #
+        #         if target[i] == model_answers[i]:
+        #             count += 1
+        #             if model_answers[i] == 'pos':
+        #                 tp += 1
+        #             if model_answers[i] == 'neg':
+        #                 tn += 1
+        #         else:
+        #             continue
+        #     acc = precentage(count, len(model_answers))
+        #     pos_recall = precentage(tp, pos)
+        #     neg_recall = precentage(tn, neg)
+
+
+
+
+----------------------------------------------
+Regular splitting of the data
+
+        # split up training data
+        # x_train, x_test, y_train, y_test = train_test_split(x, y)
+
+----------------------------------------------
+Testing the model
+
+# # using test set, validate the accuracy of the model
+# test_df = pd.read_csv(test_file, names=['data', 'target'])
+# data2 = np.array(test_df['data'])
+# test_target = np.array(test_df['target'])
+#
+# data2 = modify_data(data2)
+# test_data = BinaryFeatureVector(size_correction, data2)
+#
+# predict = model.predict(test_data, verbose=0)
+#
+# scores = list()
+# for i in range(len(predict)):
+#     temp = predict[i][0]
+#     temp = round(temp, ndigits=None)
+#     temp = int(temp)
+#     scores.append(temp)
+#
+# scores = enc.inverse_transform(scores)
+#
+# print("\nAccuracy of model : {}\n".format(accuracy_score(test_target, scores)))
+# print("Confusion Matrix:")
+# print(confusion_matrix(test_target, scores))
+# tn, fp, fn, tp = confusion_matrix(test_target, scores).ravel()
+# print("{} {} {} {}".format(tn, fp, fn, tp))
+# print(classification_report(test_target, scores))
+
+
+-------------------------------------------------
+
+
+def format_sentence(sent, stopwords=None):
+    filtered_words = []
+    # convert to lowercase
+    sent = sent.translate(str.maketrans("", "", string.punctuation)).lower()
+    #remove stopwords
+    if stopwords is not None:
+        com_list = sent.split()
+        for word in com_list:
+            if word not in stopwords:
+                filtered_words.append(word)
+        # sent = ' '.join(filtered_words)
+
+    #return({word: True for word in nltk.word_tokenize(sent)})
+    return({word: True for word in filtered_words})
+
+# my_list = []
+# with open('gilenya_effectivness.csv') as file:
+#     reader = csv.DictReader(file)
+#     for row in reader:
+#         my_list.append({'comment': row['comment'], 'rating': row['rating']})
+#
+# pos_list=[]
+# neg_list=[]
+# neu_list=[]
+# for c in my_list:
+#     tmp_com = c['comment']
+#     tmp_rating = c['rating']
+#
+#     #remove stop words
+#     with open('./stopwords_long') as raw:
+#         stopwords = raw.read().translate(str.maketrans("", "", string.punctuation)).splitlines()
+#
+#         if tmp_com != '':
+#             if tmp_rating in ['1','2']:
+#                 neg_list.append((format_sentence(tmp_com, stopwords), 'neg'))
+#             elif tmp_rating in ['4','5']:
+#                 pos_list.append((format_sentence(tmp_com, stopwords), 'pos'))
+#             else:
+#                 neu_list.append(tmp_com)
+#
+# print("Neg:"+str(len(neg_list))+"\nPos:"+str(len(pos_list))+"\nNeutral:"+str(len(neu_list)))
+# pos_list[0]
+#
+# negcutoff = math.floor(len(neg_list)*3/4)
+# poscutoff = math.floor(len(pos_list)*3/4)
+#
+# train = neg_list[:negcutoff] + pos_list[:poscutoff]
+# test = neg_list[negcutoff:] + pos_list[poscutoff:]
+# print('train on %d instances, test on %d instances' % (len(train), len(test)))
+# print('negcutoff %d instances, poscutoff %d instances' % (negcutoff, poscutoff))
+#
+# neg_idx_train = sorted(random.sample(range(len(neg_list)), negcutoff))
+# neg_train = [neg_list[i] for i in neg_idx_train]
+#
+# neg_idx_test = set(range(len(neg_list))) - set(neg_idx_train)
+# neg_test = [neg_list[i] for i in neg_idx_test]
+#
+#
+# pos_idx_train = sorted(random.sample(range(len(pos_list)), poscutoff))
+# pos_train = [pos_list[i] for i in pos_idx_train]
+#
+# pos_idx_test = set(range(len(pos_list))) - set(pos_idx_train)
+# pos_test = [pos_list[i] for i in pos_idx_test]
+#
+# train = neg_train + pos_train
+# test = neg_test + pos_test
+#
+# wtrain = csv.writer(open ('gilenya_train.csv', 'w'), delimiter=',', lineterminator='\n')
+# for label in train:
+#     wtrain.writerows([label])
+#
+# wtest = csv.writer(open ('gilenya_test.csv', 'w'), delimiter=',', lineterminator='\n')
+# for label in test:
+#     wtest.writerows([label])
+#
+#
+# print('train on %d instances, test on %d instances' % (len(train), len(test)))
+# print('neg_idx_train %d instances, pos_idx_train %d instances' % (len(neg_idx_train), len(pos_idx_train)))
